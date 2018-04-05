@@ -1,10 +1,10 @@
 class BugsController < ApplicationController
   before_action :set_user
-  before_action :set_user_post, only: [:show, :update, :destroy]
+  before_action :set_user_bug, only: [:show, :update, :destroy]
 
   # GET /authors/:author_id/posts
   def index
-    json_response(@user.posts)
+    json_response(@user.bugs)
   end
 
   # GET /authors/:author_id/posts/:id
@@ -33,14 +33,13 @@ class BugsController < ApplicationController
   end
 
   private
-
   def bug_params
     params.permit(:title, :description, :issue_type, :priority, :status)
   end
   def set_user
     @user = User.find(params[:user_id])
   end
-  def set_user_post
+  def set_user_bug
     @bug = @user.bugs.find_by!(id: params[:id]) if @user
   end
 end
